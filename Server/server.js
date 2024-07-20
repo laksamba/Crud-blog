@@ -1,5 +1,5 @@
 import express from "express";
-import { config } from "./config/Config.js";
+// import { config } from "./config/Config.js";
 import connectDb from "./config/Db.js";
 import router from "./routes/index.js";
 import errorHandler from "./middleware/errorHandle.js";
@@ -10,7 +10,7 @@ import cors from 'cors';
 
 const corsOptions = {
   credentials: true,
-  origin: 'http://localhost:5173', // No trailing slash here
+  origin: 'https://blog-laksamba.vercel.app', // No trailing slash here
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
 };
