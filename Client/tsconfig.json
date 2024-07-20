@@ -1,12 +1,7 @@
 
 {
   
-    "compilerOptions": {
-      "strict": false, // Disable all strict type-checking options
-      "noEmitOnError": false, // Allow emitting files even if there are errors
-      "skipLibCheck": true, // Skip type checking of declaration files
-      // "suppressImplicitAnyIndexErrors": true // Suppress errors on implicit `any` index signatures
-    },
+   
   "files": [],
   "references": [
     {

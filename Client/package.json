@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "build:js": "babel src/js -d dist/js",
+    "build:ts": "tsc",
+    "build": "npm run build:js && npm run build:ts"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
