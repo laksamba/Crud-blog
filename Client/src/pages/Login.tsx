@@ -9,7 +9,7 @@ import { setUser } from '../store/userSlice';
 
 const Login = () => {
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // New state for loading
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,22 +20,29 @@ const Login = () => {
     },
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
-      setLoading(true); 
-      const response = await login(values);
+      setLoading(true); // Set loading to true when the form is submitted
+      setError(''); // Clear any previous errors
 
-      if ('user' in response) {
-        const user = {
-          _id: response.user._id,
-          email: response.user.email,
-          username: response.user.username,
-          auth: response.auth
-        };
-        dispatch(setUser(user));
-        navigate('/');
-      } else {
-        setError(response.message);
+      try {
+        const response = await login(values);
+
+        if ('user' in response) {
+          const user = {
+            _id: response.user._id,
+            email: response.user.email,
+            username: response.user.username,
+            auth: response.auth
+          };
+          dispatch(setUser(user));
+          navigate('/');
+        } else {
+          setError(response.message);
+        }
+      } catch (err) {
+        setError('An unexpected error occurred.');
+      } finally {
+        setLoading(false); // Reset loading state regardless of success or failure
       }
-      setLoading(false);
     }
   });
 
@@ -63,7 +70,13 @@ const Login = () => {
           error={errors.password && touched.password ? 1 : undefined}
           errormessage={errors.password}
         />
-        <button className='btn_dark_rounded !py-[12px] mt-7 min-w-[299px] disabled:bg-[#333]' type="submit">Log In</button>
+        <button 
+          className='btn_dark_rounded !py-[12px] mt-7 min-w-[299px] disabled:bg-[#333]' 
+          type="submit" 
+          disabled={loading} // Disable the button when loading
+        >
+          {loading ? 'Logging in...' : 'Log In'} {/* Show loading text */}
+        </button>
       </form>
       {error && <span className='mt-12 text-red-600'>{error}</span>}
       <span className='mt-12 text-gray-600'>Don't have an account?  

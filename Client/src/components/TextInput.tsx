@@ -1,15 +1,20 @@
+import React, { InputHTMLAttributes } from 'react';
 
+interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  error?: boolean;
+  errormessage?: string;
+}
 
-const TextInput = (props) => {
+const TextInput: React.FC<TextInputProps> = ({ error, errormessage, ...props }) => {
   return (
     <div className="flex flex-col items-center w-full max-w-[355px]">
       <input
         {...props}
-        className="py-3 px-7 m-2 outline-none w-full bg-[#efeeee] rounded-full "
+        className="py-3 px-7 m-2 outline-none w-full bg-[#efeeee] rounded-full"
       />
-      {props.error && (
+      {error && (
         <p className="text-red-600 text-left px-7 w-full max-w-[355px] mb-2">
-          {props.errormessage}
+          {errormessage}
         </p>
       )}
     </div>

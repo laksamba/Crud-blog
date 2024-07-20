@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { getCrypto } from '../Api/External';
 import Loader from '../components/Loader';
 

@@ -116,7 +116,7 @@ const BlogDetails = () => {
       placeholder='comment here'
       value={newComment}
       onChange={(e) => setNewComment(e.target.value)}
-      className='regular-14 py-3 px-5 my-2  bg-[#d3d1d1] rounded-full shadow-sm z-10'
+      className='regular-14 py-3 px-5 my-2  bg-[#bcb9b9] rounded-full shadow-sm z-10'
       />
       <button onClick={postCommentHandler} className='btn_dark_rounded'>post</button>
     </div>

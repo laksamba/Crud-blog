@@ -12,6 +12,14 @@ interface LoginData {
   username: string;
   password: string;
 }
+interface SignupData {
+  username: string;
+  password: string;
+  email: string;
+  name: string;
+  confirmPassword: string;
+ 
+}
 
 interface UserResponse {
   auth: any;
@@ -46,7 +54,7 @@ export const login = async (data: LoginData): Promise<UserResponse | ErrorRespon
 };
 
 
-export const signup = async (data: LoginData): Promise<UserResponse | ErrorResponse> => {
+export const signup = async (data: SignupData): Promise<UserResponse | ErrorResponse> => {
   try {
     const response = await api.post<UserResponse>('/register', data);
     return response.data;
