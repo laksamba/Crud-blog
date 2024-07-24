@@ -27,7 +27,7 @@ router.get('/refresh', authController.refresh)
 // blog
 // CRUD 
 // create 
-router.post('/blog',auth,postController.create)
+router.post('/blog',postController.create)
 // read all blogs
 router.get('/blog/all',auth,postController.getAll);
 // get by id
