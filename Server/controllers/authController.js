@@ -200,7 +200,7 @@ const authController = {
     } catch (e) {
       const error = {
         status:401,
-        message: "unauthorized hero"
+        message: "unauthorized "
       }
       return next(error);
     }
