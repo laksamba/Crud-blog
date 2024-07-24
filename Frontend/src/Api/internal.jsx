@@ -57,9 +57,14 @@ export const getAllblog = async () => {
   }
 };
 
-export const postBlog = async (data) => {
+export const postBlog = async (data,auth) => {
+  // const token = localStorage.getItem('authToken');
   try {
-    const response = await api.post('/blog', data);
+    const response = await api.post('/blog', data , {
+      headers: {
+        Authorization: `Bearer ${auth}`, // Include token in headers
+      },
+    });
     console.log('axios response', response);
     return response;
   } catch (error) {
