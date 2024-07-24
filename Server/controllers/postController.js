@@ -1,19 +1,17 @@
 import Joi from 'joi';
 import Post from '../models/Post.js';
 import PostDTO from '../dto/post.js';
-import { config } from '../config/Config.js';
 import PostDetailsDTO from '../dto/postDetails.js';
 import Comment from '../models/Comment.js';
 import cloudinary from '../config/cloudinaryConfig.js';
 
 const postController = {
   async create(req, res, next) {
-    // Validate the request body
     const createPostSchema = Joi.object({
       title: Joi.string().required(),
-      author: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
+      author: Joi.string().regex(/^[a-zA-Z0-9]{24}$/).required(), // MongoDB ObjectId pattern
       content: Joi.string().required(),
-      photo: Joi.string().required(),
+      photo: Joi.string().required(), // Base64 image string
     });
 
     const { error } = createPostSchema.validate(req.body);
@@ -25,7 +23,6 @@ const postController = {
 
     let photoPath;
     try {
-      // Upload the photo to Cloudinary
       const uploadResponse = await cloudinary.uploader.upload(photo, {
         folder: 'uploads',
         public_id: `${Date.now()}-${author}`,
@@ -37,7 +34,6 @@ const postController = {
       return next(error);
     }
 
-    // Save post in the database
     let newPost;
     try {
       newPost = new Post({
@@ -67,7 +63,7 @@ const postController = {
 
   async getById(req, res, next) {
     const getByIdSchema = Joi.object({
-      id: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
+      id: Joi.string().regex(/^[a-zA-Z0-9]{24}$/).required(), // MongoDB ObjectId pattern
     });
 
     const { error } = getByIdSchema.validate(req.params);
@@ -94,8 +90,8 @@ const postController = {
     const updatePostSchema = Joi.object({
       title: Joi.string(),
       content: Joi.string(),
-      author: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
-      postId: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
+      author: Joi.string().regex(/^[a-zA-Z0-9]{24}$/).required(), // MongoDB ObjectId pattern
+      postId: Joi.string().regex(/^[a-zA-Z0-9]{24}$/).required(), // MongoDB ObjectId pattern
       photo: Joi.string(),
     });
 
@@ -117,17 +113,13 @@ const postController = {
     }
 
     if (photo) {
-      let previousPhoto = post.photoPath;
-
-      // Delete the previous photo from Cloudinary
-      const previousPublicId = previousPhoto.split('/').slice(-1)[0].split('.')[0];
+      const previousPublicId = post.photoPath.split('/').slice(-1)[0].split('.')[0];
       try {
         await cloudinary.uploader.destroy(`uploads/${previousPublicId}`);
       } catch (error) {
         return next(error);
       }
 
-      // Upload the new photo to Cloudinary
       let newPhotoPath;
       try {
         const uploadResponse = await cloudinary.uploader.upload(photo, {
@@ -158,7 +150,7 @@ const postController = {
 
   async delete(req, res, next) {
     const deletePostSchema = Joi.object({
-      id: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
+      id: Joi.string().regex(/^[a-zA-Z0-9]{24}$/).required(), // MongoDB ObjectId pattern
     });
 
     const { error } = deletePostSchema.validate(req.params);
@@ -175,7 +167,6 @@ const postController = {
         return res.status(404).json({ message: 'Post not found' });
       }
 
-      // Delete the photo from Cloudinary
       const publicId = post.photoPath.split('/').slice(-1)[0].split('.')[0];
       try {
         await cloudinary.uploader.destroy(`uploads/${publicId}`);
