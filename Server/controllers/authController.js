@@ -77,11 +77,15 @@ const authController = {
     res.cookie("accessToken", accessToken, {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
+      secure: true,
+      Samesite: "none"
     });
 
     res.cookie("refreshToken", refreshToken, {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
+       secure: true,
+      Samesite: "none"
     });
 
     // Response send
