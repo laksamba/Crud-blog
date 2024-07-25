@@ -9,8 +9,8 @@ import cors from 'cors';
 
 
 const corsOptions = {
-  credentials: true,
   origin: ['https://blog-laksamba.vercel.app','http://localhost:5173'],
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Specify allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
 };
