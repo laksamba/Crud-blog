@@ -19,7 +19,7 @@ const Crypto = () => {
   }, []);
 
   if (data.length === 0) {
-    return <Loader text={"cryptocurrency"} />;
+    return <><Loader text={"cryptocurrency"}  /> <p className='text-center'>if loading continue for long try with vpn </p></>
   }
 
   const positiveNmbr = {
