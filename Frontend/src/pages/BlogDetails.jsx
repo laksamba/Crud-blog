@@ -87,7 +87,7 @@ const BlogDetails = () => {
   }
 
   if (error) {
-    return <div className="error-message">{error}</div>;
+    return <div className="error-message bg-red-600">{error}</div>;
   }
 
   if (!blog) {
