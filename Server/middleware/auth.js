@@ -5,6 +5,8 @@ import UserDTO from "../dto/user.js";
 const auth = async (req, res, next) => {
   // refresh token and access token validate
   const { refreshToken, accessToken } = req.cookies;
+  console.log("refrshtoken",refreshToken);
+  
   try {
     if (!refreshToken || !accessToken) {
     const error = {
