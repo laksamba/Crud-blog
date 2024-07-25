@@ -78,14 +78,14 @@ const authController = {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
       secure: true,
-      Samesite: "none"
+      sameSite: "none"
     });
 
     res.cookie("refreshToken", refreshToken, {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
        secure: true,
-      Samesite: "none"
+       sameSite: "none"
     });
 
     // Response send
